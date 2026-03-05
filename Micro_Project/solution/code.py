@@ -3,12 +3,14 @@ import pulp
 import matplotlib.pyplot as plt
 import os
 import sys
+import folium
+from folium import plugins
 
 # ==========================================
 # 1. CORE CONFIGURATION & CONSTANTS
 # ==========================================
 class Config:
-    DATA_PATH = "../data/" # Adjusted for your folder structure
+    DATA_PATH = "../datafiles/" # Adjusted for your folder structure
     FACILITIES = ['MED_CENTER', 'ENG_BUILDING', 'SCIENCE_HALL', 'DORM_A', 'DORM_B', 'LIBRARY']
     SITES = ['WH_NORTH', 'WH_SOUTH', 'WH_EAST']
     
@@ -78,75 +80,93 @@ def run_optimization(demands, caps, overhead, shipping):
     network_opt.solve(pulp.PULP_CBC_CMD(msg=0))
     return network_opt, is_open, flow
 
+
+
 # ==========================================
-# 5. ENHANCED VISUALIZATION
+# 5. INTERACTIVE GEOSPATIAL VISUALIZATION
 # ==========================================
 def plot_distribution(data, open_vars, flow_vars, total_cost):
     f_geo = data['geo'].set_index('facility_id').loc[Config.FACILITIES]
     w_geo = data['nodes'].set_index('warehouse_id').loc[Config.SITES]
 
-    plt.style.use('seaborn-v0_8-whitegrid')
-    fig, ax = plt.subplots(figsize=(12, 8))
-    
-    # Calculate Max Flow for line scaling
-    all_flows = [pulp.value(flow_vars[w][f]) for w in Config.SITES for f in Config.FACILITIES]
-    max_flow = max(all_flows) if any(all_flows) else 1
+    # Initialize map centered on the campus area
+    m = folium.Map(
+        location=[f_geo['latitude'].mean(), f_geo['longitude'].mean()],
+        zoom_start=15,
+        tiles='CartoDB positron'
+    )
 
-    # 1. Draw connections (Hub and Spoke)
-    for w in Config.SITES:
-        for f in Config.FACILITIES:
-            vol = pulp.value(flow_vars[w][f])
-            if vol and vol > 0:
-                # Line width scales with shipping volume
-                lw = 1 + (vol / max_flow) * 6
-                ax.plot([w_geo.loc[w, 'longitude'], f_geo.loc[f, 'longitude']],
-                        [w_geo.loc[w, 'latitude'], f_geo.loc[f, 'latitude']],
-                        color='#3498db', alpha=0.4, linewidth=lw, zorder=1)
-
-    # 2. Plot Facilities
-    ax.scatter(f_geo['longitude'], f_geo['latitude'], color='#2c3e50', 
-               s=150, marker='o', label='Campus Facilities', zorder=3, edgecolors='white')
-
-    # 3. Plot Warehouses
+    # 1. Add Warehouses to Map
     for w in Config.SITES:
         is_active = pulp.value(open_vars[w]) == 1
-        color = '#27ae60' if is_active else '#e74c3c'
-        marker = 's'
-        size = 350 if is_active else 150
-        alpha = 1.0 if is_active else 0.4
+        color = 'green' if is_active else 'red'
+        icon_type = 'university' if is_active else 'minus-circle'
         
-        ax.scatter(w_geo.loc[w, 'longitude'], w_geo.loc[w, 'latitude'], 
-                   c=color, marker=marker, s=size, alpha=alpha,
-                   label=f'{w} (Open)' if is_active else None, 
-                   zorder=4, edgecolors='black')
+        folium.Marker(
+            location=[w_geo.loc[w, 'latitude'], w_geo.loc[w, 'longitude']],
+            popup=f"<b>Warehouse: {w}</b><br>Status: {'ACTIVE' if is_active else 'CLOSED'}",
+            tooltip=f"Warehouse {w}",
+            icon=folium.Icon(color=color, icon=icon_type, prefix='fa')
+        ).add_to(m)
 
-    # 4. Text Annotations
-    for i, txt in enumerate(Config.FACILITIES):
-        ax.annotate(txt, (f_geo.iloc[i].longitude, f_geo.iloc[i].latitude), 
-                    xytext=(5,5), textcoords='offset points', fontsize=8, fontweight='bold')
+    # 2. Add Facilities and Shipping Routes
+    for f in Config.FACILITIES:
+        # Plot Facility
+        folium.CircleMarker(
+            location=[f_geo.loc[f, 'latitude'], f_geo.loc[f, 'longitude']],
+            radius=10,
+            color='#2c3e50',
+            fill=True,
+            fill_color='#34495e',
+            fill_opacity=0.7,
+            popup=f"Facility: {f}",
+            tooltip=f
+        ).add_to(m)
 
-    # 5. Display Total Cost and Summary on the PNG
-    summary_box = (
-        f"NETWORK OPTIMIZATION REPORT\n"
-        f"{'='*30}\n"
-        f"TOTAL ANNUAL COST: ${total_cost:,.2f}\n"
-        f"BUDGET UTILIZATION: {(total_cost/Config.MAX_BUDGET)*100:.1f}%\n"
-        f"STATUS: OPTIMAL"
-    )
+        # Draw Shipping Flows
+        for w in Config.SITES:
+            vol = pulp.value(flow_vars[w][f])
+            if vol and vol > 0:
+                # Calculate thickness based on volume (normalized)
+                # Adjust '1500' based on your typical shipping volumes
+                lw = 1 + (vol / 1500) 
+                
+                points = [
+                    [w_geo.loc[w, 'latitude'], w_geo.loc[w, 'longitude']],
+                    [f_geo.loc[f, 'latitude'], f_geo.loc[f, 'longitude']]
+                ]
+                
+                folium.PolyLine(
+                    locations=points,
+                    weight=lw,
+                    color='#3498db',
+                    opacity=0.6,
+                    tooltip=f"Route: {w} to {f}<br>Annual Volume: {vol:,} units"
+                ).add_to(m)
+
+    # 3. Add a Floating Summary Box (HTML/CSS)
+    summary_html = f'''
+        <div style="position: fixed; 
+                    top: 10px; right: 10px; width: 280px; height: auto; 
+                    background-color: white; border:2px solid grey; z-index:9999; 
+                    font-size:14px; padding: 10px; border-radius: 5px;
+                    box-shadow: 3px 3px 5px rgba(0,0,0,0.2);">
+            <b>Network Optimization Report</b><br>
+            <hr style="margin: 5px 0;">
+            <b>Total Annual Cost:</b> ${total_cost:,.2f}<br>
+            <b>Budget Utilization:</b> {(total_cost/Config.MAX_BUDGET)*100:.1f}%<br>
+            <b>Status:</b> <span style="color: green;">OPTIMAL</span>
+        </div>
+    '''
+    m.get_root().html.add_child(folium.Element(summary_html))
+
+    # Save and instructions
+    output_filename = "Campus_Optimization_Map.html"
+    m.save(output_filename)
+    print(f"✔ Interactive Folium map saved as: {output_filename}")
     
-    # Text box in the upper left corner
-    plt.text(0.02, 0.96, summary_box, transform=ax.transAxes, fontsize=11,
-             verticalalignment='top', family='monospace', fontweight='bold',
-             bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.8, edgecolor='#bdc3c7'))
-
-    ax.set_title("Campus City Strategic Supply Chain Map", fontsize=15, fontweight='bold', pad=20)
-    ax.legend(loc='lower right', frameon=True, shadow=True)
-    
-    # Save and Show
-    output_filename = "Campus_Optimization_Report.png"
-    plt.savefig(output_filename, dpi=300, bbox_inches='tight')
-    print(f"✔ Optimized PNG saved as: {output_filename}")
-    plt.show()
+    # Note: Folium doesn't show directly in terminal like plt.show()
+    # It creates an HTML file you can open in any browser.
 
 # ==========================================
 # 6. EXECUTION
