@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_61b6b0252e0b4a6839e9384489ba5595 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+        <div style="position: fixed; 
+                    top: 10px; right: 10px; width: 280px; height: auto; 
+                    background-color: white; border:2px solid grey; z-index:9999; 
+                    font-size:14px; padding: 10px; border-radius: 5px;
+                    box-shadow: 3px 3px 5px rgba(0,0,0,0.2);">
+            <b>Network Optimization Report</b><br>
+            <hr style="margin: 5px 0;">
+            <b>Total Annual Cost:</b> $959,466.05<br>
+            <b>Budget Utilization:</b> 64.0%<br>
+            <b>Status:</b> <span style="color: green;">OPTIMAL</span>
+        </div>
+    
+    
+            <div class="folium-map" id="map_61b6b0252e0b4a6839e9384489ba5595" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_61b6b0252e0b4a6839e9384489ba5595 = L.map(
+                "map_61b6b0252e0b4a6839e9384489ba5595",
+                {
+                    center: [40.80766666666667, -73.9626],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 15,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_e41dc62adda8cd0bea3aba87ad44e47c = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e41dc62adda8cd0bea3aba87ad44e47c.addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+            var marker_952af388709f46f84d66b488b7323cc2 = L.marker(
+                [40.8125, -73.9626],
+                {
+}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+            var icon_88aa217334733fda3966f94e9382ab8d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "university",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_97425f273565e5aa4b238ddcb66eecdc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_76a335ceac02bfa62d36b618e2f754a5 = $(`<div id="html_76a335ceac02bfa62d36b618e2f754a5" style="width: 100.0%; height: 100.0%;"><b>Warehouse: WH_NORTH</b><br>Status: ACTIVE</div>`)[0];
+                popup_97425f273565e5aa4b238ddcb66eecdc.setContent(html_76a335ceac02bfa62d36b618e2f754a5);
+            
+        
+
+        marker_952af388709f46f84d66b488b7323cc2.bindPopup(popup_97425f273565e5aa4b238ddcb66eecdc)
+        ;
+
+        
+    
+    
+            marker_952af388709f46f84d66b488b7323cc2.bindTooltip(
+                `<div>
+                     Warehouse WH_NORTH
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_952af388709f46f84d66b488b7323cc2.setIcon(icon_88aa217334733fda3966f94e9382ab8d);
+            
+    
+            var marker_965c8aac39e38306f788528ad6bd1041 = L.marker(
+                [40.8025, -73.9626],
+                {
+}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+            var icon_dccd982c7bbeaefc65a52ff2d919bf59 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "university",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f53d9bb792e8b0e955718a6132ec3a90 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_97ae386838f8f73193af40bfb04bf925 = $(`<div id="html_97ae386838f8f73193af40bfb04bf925" style="width: 100.0%; height: 100.0%;"><b>Warehouse: WH_SOUTH</b><br>Status: ACTIVE</div>`)[0];
+                popup_f53d9bb792e8b0e955718a6132ec3a90.setContent(html_97ae386838f8f73193af40bfb04bf925);
+            
+        
+
+        marker_965c8aac39e38306f788528ad6bd1041.bindPopup(popup_f53d9bb792e8b0e955718a6132ec3a90)
+        ;
+
+        
+    
+    
+            marker_965c8aac39e38306f788528ad6bd1041.bindTooltip(
+                `<div>
+                     Warehouse WH_SOUTH
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_965c8aac39e38306f788528ad6bd1041.setIcon(icon_dccd982c7bbeaefc65a52ff2d919bf59);
+            
+    
+            var marker_1c6b64e38e22bd3914afe004562af47a = L.marker(
+                [40.8075, -73.957],
+                {
+}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+            var icon_68abb7bb58787125a2e03aea46a4f75a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "minus-circle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d52c75d9dd01815ae47136f673dac68e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6b918ca5b77b8441acaf49efd7bb052a = $(`<div id="html_6b918ca5b77b8441acaf49efd7bb052a" style="width: 100.0%; height: 100.0%;"><b>Warehouse: WH_EAST</b><br>Status: CLOSED</div>`)[0];
+                popup_d52c75d9dd01815ae47136f673dac68e.setContent(html_6b918ca5b77b8441acaf49efd7bb052a);
+            
+        
+
+        marker_1c6b64e38e22bd3914afe004562af47a.bindPopup(popup_d52c75d9dd01815ae47136f673dac68e)
+        ;
+
+        
+    
+    
+            marker_1c6b64e38e22bd3914afe004562af47a.bindTooltip(
+                `<div>
+                     Warehouse WH_EAST
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1c6b64e38e22bd3914afe004562af47a.setIcon(icon_68abb7bb58787125a2e03aea46a4f75a);
+            
+    
+            var circle_marker_a9af867294801f3107b30281e867d8a7 = L.circleMarker(
+                [40.8075, -73.9626],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#34495e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+        var popup_651a397a8bfcd795764893af805d5b18 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d4b7f906b4025fe85863b7a0cbebf78d = $(`<div id="html_d4b7f906b4025fe85863b7a0cbebf78d" style="width: 100.0%; height: 100.0%;">Facility: MED_CENTER</div>`)[0];
+                popup_651a397a8bfcd795764893af805d5b18.setContent(html_d4b7f906b4025fe85863b7a0cbebf78d);
+            
+        
+
+        circle_marker_a9af867294801f3107b30281e867d8a7.bindPopup(popup_651a397a8bfcd795764893af805d5b18)
+        ;
+
+        
+    
+    
+            circle_marker_a9af867294801f3107b30281e867d8a7.bindTooltip(
+                `<div>
+                     MED_CENTER
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_50bdcd9ecccf9ecb20fa64743f47ee47 = L.polyline(
+                [[40.8025, -73.9626], [40.8075, -73.9626]],
+                {"bubblingMouseEvents": true, "color": "#3498db", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3498db", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 20.71}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+            poly_line_50bdcd9ecccf9ecb20fa64743f47ee47.bindTooltip(
+                `<div>
+                     Route: WH_SOUTH to MED_CENTER<br>Annual Volume: 29,565.0 units
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d21aa3bfd2b6294e0cd82daed9575d0f = L.circleMarker(
+                [40.81, -73.96],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#34495e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+        var popup_7dcf679d2b05d1a76b1256be1cdd77f2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_462ab142bf071895189caef99ba7131a = $(`<div id="html_462ab142bf071895189caef99ba7131a" style="width: 100.0%; height: 100.0%;">Facility: ENG_BUILDING</div>`)[0];
+                popup_7dcf679d2b05d1a76b1256be1cdd77f2.setContent(html_462ab142bf071895189caef99ba7131a);
+            
+        
+
+        circle_marker_d21aa3bfd2b6294e0cd82daed9575d0f.bindPopup(popup_7dcf679d2b05d1a76b1256be1cdd77f2)
+        ;
+
+        
+    
+    
+            circle_marker_d21aa3bfd2b6294e0cd82daed9575d0f.bindTooltip(
+                `<div>
+                     ENG_BUILDING
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_44fcaf46d0d485d29777ab417a7619ab = L.polyline(
+                [[40.8125, -73.9626], [40.81, -73.96]],
+                {"bubblingMouseEvents": true, "color": "#3498db", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3498db", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 8.3}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+            poly_line_44fcaf46d0d485d29777ab417a7619ab.bindTooltip(
+                `<div>
+                     Route: WH_NORTH to ENG_BUILDING<br>Annual Volume: 10,950.0 units
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0f8b0b6e1fe969dee184ba618c4b7367 = L.circleMarker(
+                [40.805, -73.965],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#34495e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+        var popup_0b496068bfe4ad0b81834cb19757c367 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_70d34ed98bf60e5f859a65a64599b2a7 = $(`<div id="html_70d34ed98bf60e5f859a65a64599b2a7" style="width: 100.0%; height: 100.0%;">Facility: SCIENCE_HALL</div>`)[0];
+                popup_0b496068bfe4ad0b81834cb19757c367.setContent(html_70d34ed98bf60e5f859a65a64599b2a7);
+            
+        
+
+        circle_marker_0f8b0b6e1fe969dee184ba618c4b7367.bindPopup(popup_0b496068bfe4ad0b81834cb19757c367)
+        ;
+
+        
+    
+    
+            circle_marker_0f8b0b6e1fe969dee184ba618c4b7367.bindTooltip(
+                `<div>
+                     SCIENCE_HALL
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_2bc1160362b2e28411eb779d7bbb7a8d = L.polyline(
+                [[40.8025, -73.9626], [40.805, -73.965]],
+                {"bubblingMouseEvents": true, "color": "#3498db", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3498db", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 7.8133333333333335}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+            poly_line_2bc1160362b2e28411eb779d7bbb7a8d.bindTooltip(
+                `<div>
+                     Route: WH_SOUTH to SCIENCE_HALL<br>Annual Volume: 10,220.0 units
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_21397724666ff78ce44ffcdba87bdd25 = L.circleMarker(
+                [40.812, -73.959],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#34495e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+        var popup_ea71f83950a1753652a5d9b9667145bd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f36db32698e701b32f256c06ffd24f55 = $(`<div id="html_f36db32698e701b32f256c06ffd24f55" style="width: 100.0%; height: 100.0%;">Facility: DORM_A</div>`)[0];
+                popup_ea71f83950a1753652a5d9b9667145bd.setContent(html_f36db32698e701b32f256c06ffd24f55);
+            
+        
+
+        circle_marker_21397724666ff78ce44ffcdba87bdd25.bindPopup(popup_ea71f83950a1753652a5d9b9667145bd)
+        ;
+
+        
+    
+    
+            circle_marker_21397724666ff78ce44ffcdba87bdd25.bindTooltip(
+                `<div>
+                     DORM_A
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_cd18fe58a6be621acab69c9904405062 = L.polyline(
+                [[40.8125, -73.9626], [40.812, -73.959]],
+                {"bubblingMouseEvents": true, "color": "#3498db", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3498db", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 12.923333333333334}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+            poly_line_cd18fe58a6be621acab69c9904405062.bindTooltip(
+                `<div>
+                     Route: WH_NORTH to DORM_A<br>Annual Volume: 17,885.0 units
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_000d83785fb1219f1fca288940abf7a8 = L.circleMarker(
+                [40.803, -73.966],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#34495e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+        var popup_47e262741f4b5ead661af5ca3bc4a2b5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bfa324d17998d8c886e03c7653b62112 = $(`<div id="html_bfa324d17998d8c886e03c7653b62112" style="width: 100.0%; height: 100.0%;">Facility: DORM_B</div>`)[0];
+                popup_47e262741f4b5ead661af5ca3bc4a2b5.setContent(html_bfa324d17998d8c886e03c7653b62112);
+            
+        
+
+        circle_marker_000d83785fb1219f1fca288940abf7a8.bindPopup(popup_47e262741f4b5ead661af5ca3bc4a2b5)
+        ;
+
+        
+    
+    
+            circle_marker_000d83785fb1219f1fca288940abf7a8.bindTooltip(
+                `<div>
+                     DORM_B
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_76bbee6fc84256fa7cf23acc3c774847 = L.polyline(
+                [[40.8025, -73.9626], [40.803, -73.966]],
+                {"bubblingMouseEvents": true, "color": "#3498db", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3498db", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 13.41}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+            poly_line_76bbee6fc84256fa7cf23acc3c774847.bindTooltip(
+                `<div>
+                     Route: WH_SOUTH to DORM_B<br>Annual Volume: 18,615.0 units
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8d61d71199f95a959b13e4a20f2acb69 = L.circleMarker(
+                [40.8085, -73.963],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#34495e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+        var popup_e3757a80d203885ab85727b197b919f2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_99287025f13af998c276100f1b7ad55d = $(`<div id="html_99287025f13af998c276100f1b7ad55d" style="width: 100.0%; height: 100.0%;">Facility: LIBRARY</div>`)[0];
+                popup_e3757a80d203885ab85727b197b919f2.setContent(html_99287025f13af998c276100f1b7ad55d);
+            
+        
+
+        circle_marker_8d61d71199f95a959b13e4a20f2acb69.bindPopup(popup_e3757a80d203885ab85727b197b919f2)
+        ;
+
+        
+    
+    
+            circle_marker_8d61d71199f95a959b13e4a20f2acb69.bindTooltip(
+                `<div>
+                     LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_0128da0f9437d913e705ffaae9c763d7 = L.polyline(
+                [[40.8125, -73.9626], [40.8085, -73.963]],
+                {"bubblingMouseEvents": true, "color": "#3498db", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3498db", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 8.3}
+            ).addTo(map_61b6b0252e0b4a6839e9384489ba5595);
+        
+    
+            poly_line_0128da0f9437d913e705ffaae9c763d7.bindTooltip(
+                `<div>
+                     Route: WH_NORTH to LIBRARY<br>Annual Volume: 10,950.0 units
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>
