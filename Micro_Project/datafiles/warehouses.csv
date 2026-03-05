@@ -1,0 +1,6 @@
+warehouse_id,warehouse_name,latitude,longitude,capacity,construction_cost,operational_cost
+WH_NORTH,North Campus Warehouse,40.8125,-73.9626,400,300000,800
+WH_SOUTH,South Campus Warehouse,40.8025,-73.9626,350,280000,700
+WH_EAST,East Gate Warehouse,40.8075,-73.957,450,320000,900
+WH_WEST,West Gate Warehouse,40.8075,-73.968,300,250000,600
+WH_CENTRAL,Central Storage,40.8075,-73.9626,500,350000,1000
